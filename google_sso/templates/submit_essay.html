@@ -1,0 +1,55 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Submit Essay{% endblock %}
+
+{% block content %}
+<style>
+    /* Custom styles for Submit Essay page */
+    .submit-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        color: #007bff;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    form {
+        margin-top: 20px;
+    }
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    button[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+<div class="submit-container">
+    <h1>Submit Essay</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

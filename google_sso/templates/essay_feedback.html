@@ -1,0 +1,73 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Essay Feedback{% endblock %}
+
+{% block content %}
+<style>
+    .feedback-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-in-out;
+    }
+    h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    h2 {
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+    p {
+        margin-bottom: 20px;
+    }
+    pre {
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+    }
+    strong {
+        color: #007bff;
+    }
+    .score {
+        font-size: 24px;
+        color: #28a745;
+        font-weight: bold;
+    }
+    .feedback-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    .feedback-btn:hover {
+        background-color: #0056b3;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
+<div class="feedback-container">
+    <h1>Essay Feedback</h1>
+    <h2>{{ essay.title }}</h2>
+    <p>{{ essay.body }}</p>
+
+    <h3>Feedback</h3>
+    <p><strong>Spelling Errors:</strong></p>
+    <pre>{{ essay.spelling_feedback }}</pre>
+
+    <p><strong>Is Content Related to Title?:</strong> {{ essay.content_related }}</p>
+    <p><strong>Essay Score:</strong> <span class="score">{{ essay.score }}</span> out of 10</p>
+
+    <p><a href="{% url 'submit_essay' %}" class="feedback-btn">Submit another essay</a></p>
+</div>
+{% endblock %}

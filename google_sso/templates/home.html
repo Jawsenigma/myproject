@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Social Login</title>
+    {% load socialaccount %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .login-providers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .login-provider {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .login-provider:hover {
+            background-color: #0056b3;
+        }
+        .logout-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if user.is_authenticated %}
+            <h1>Welcome, {{ user.username }}!</h1>
+            <p><a href="{% url 'submit_essay' %}" class="login-provider">Submit a new essay</a></p>
+            <p><a href="{% url 'essay_list' %}" class="login-provider">View your essays</a></p>
+            <p><a href="{% url 'account_logout' %}" class="logout-btn">Logout</a></p>
+        {% else %}
+            <h1>Login</h1>
+            <p>Choose a provider to log in:</p>
+            <div class="login-providers">
+                {% get_providers as socialaccount_providers %}
+                {% for provider in socialaccount_providers %}
+                    <a href="{% provider_login_url provider.id next="/" %}" class="login-provider">{{ provider.name }}</a>
+                {% endfor %}
+            </div>
+            {% providers_media_js %}
+        {% endif %}
+    </div>
+</body>
+</html>

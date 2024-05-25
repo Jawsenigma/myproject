@@ -1,0 +1,46 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Your Essays{% endblock %}
+
+{% block content %}
+<style>
+    .essays-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    li {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+    strong {
+        color: #007bff;
+    }
+</style>
+<div class="essays-container">
+    <h1>Your Essays</h1>
+    <ul>
+        {% for essay in essays %}
+            <li>
+                <strong>{{ essay.title }}</strong> - {{ essay.body }}
+                <br><strong>Spelling Errors:</strong> {{ essay.spelling_feedback }}
+                <br><strong>Content Related to Title?:</strong> {{ essay.content_related }}
+                <br><strong>Score:</strong> {{ essay.score }} out of 10
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
