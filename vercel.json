@@ -3,12 +3,8 @@
   "builds": [
     {
       "src": "manage.py",
-      "use": "@vercel/python",
       "config": {
         "pythonVersion": "3.12"
-      },
-      "hooks": {
-        "prebuild": "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh && source $HOME/.cargo/env"
       }
     }
   ],
@@ -17,5 +13,8 @@
       "src": "/(.*)",
       "dest": "manage.py"
     }
-  ]
+  ],
+  "hooks": {
+    "prebuild": "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh && source $HOME/.cargo/env"
+  }
 }
