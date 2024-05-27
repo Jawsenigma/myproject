@@ -3,6 +3,7 @@
   "builds": [
     {
       "src": "manage.py",
+      "use": "@vercel/python",
       "config": {
         "pythonVersion": "3.12"
       }
