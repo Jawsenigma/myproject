@@ -2,4 +2,4 @@ Django==4.2.5
 openai==0.28.0
 django-allauth==0.63.1
 Django>=3.0
-pysqlite== 2.8.3
+sqlite3==3.0
