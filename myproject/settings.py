@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-5u)i#=#54pv5eo0ki9s#=ope^f0a!tlrnd5-awc)6e1@xm&fcf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['your-vercel-app.vercel.app', 'localhost', '127.0.0.1', '.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['https://django-essay-evaluator.vercel.app/', 'localhost', '127.0.0.1', '.vercel.app', '.now.sh']
 
 
 # Application definition
@@ -141,7 +141,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
