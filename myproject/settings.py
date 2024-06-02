@@ -101,11 +101,11 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgresql_django_essay_evaluator',  # Database name
-        'USER': 'postgresql_django_essay_evaluator_user',  # Database username
-        'PASSWORD': 'yU2tMx10tiXDSdl3HUuRtTAYfsxxrPsF',  # Database password
-        'HOST': 'dpg-cpe5at5ds78s73eqk3j0-a.ohio-postgres.render.com',  # Database hostname
-        'PORT': '5432',  # Database port
+        'NAME': 'postgresql_django_essay_evaluator',  
+        'USER': 'postgresql_django_essay_evaluator_user',  
+        'PASSWORD': 'yU2tMx10tiXDSdl3HUuRtTAYfsxxrPsF',  
+        'HOST': 'dpg-cpe5at5ds78s73eqk3j0-a.ohio-postgres.render.com',
+        'PORT': '5432',  
     }
 }
 
