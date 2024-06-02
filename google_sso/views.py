@@ -15,6 +15,7 @@ def home(request):
 
 @login_required
 def submit_essay(request):
+    
     if request.method == 'POST':
         form = EssayForm(request.POST)
         if form.is_valid():
@@ -38,17 +39,25 @@ def essay_list(request):
 
 def evaluate_essay(api_key, title, body):
     openai.api_key = api_key
+    print("Title:", title)
+    print("Body:", body)
     
+
     try:
         spelling_prompt = Prompt.objects.get(name='spelling_prompt').prompt_text
         content_prompt = Prompt.objects.get(name='content_prompt').prompt_text
         score_prompt = Prompt.objects.get(name='score_prompt').prompt_text
     except Prompt.DoesNotExist:
+        print("Fallback prompts used.")
         # Default prompts in case they are not found in the database
         spelling_prompt = "Check the following essay for spelling errors and provide the incorrectly spelled words along with their index positions.\n\nEssay:\n{body}"
         content_prompt = "Is the content of the following essay related to its title? Answer in Yes or No. Title: {title}\n\nEssay:\n{body}"
         score_prompt = "Based on spelling mistakes and topic relevance, provide an integer score out of 10 for the essay. Title: {title}\n\nEssay:\n{body}"
-
+    
+    print("Spelling Prompt:", spelling_prompt)
+    print("Content Prompt:", content_prompt)
+    print("Score Prompt:", score_prompt)
+    
     # Check spelling errors
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",
@@ -85,3 +94,5 @@ def evaluate_essay(api_key, title, body):
         'content_related': content_related,
         'score': score
     }
+
+    
