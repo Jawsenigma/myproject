@@ -73,7 +73,12 @@ def evaluate_essay(api_key, title, body):
         max_tokens=10
     )
     score_text = score_response.choices[0].text.strip()
-    score = int(re.search(r'\d+', score_text).group())
+    score_match = re.search(r'\d+', score_text)
+    if score_match:
+        score = int(score_match.group())
+    else:
+        # Handle the case where no digit is found (default to 0 or raise an error)
+        score = 0  # Example: Default to 0
 
     return {
         'spelling_feedback': spelling_feedback,

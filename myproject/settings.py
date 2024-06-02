@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-5u)i#=#54pv5eo0ki9s#=ope^f0a!tlrnd5-awc)6e1@xm&fcf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['https://django-essay-evaluator.vercel.app/', 'localhost', '127.0.0.1', '.vercel.app', '.now.sh']
 
@@ -100,10 +100,15 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgresql_django_essay_evaluator',  # Database name
+        'USER': 'postgresql_django_essay_evaluator_user',  # Database username
+        'PASSWORD': 'yU2tMx10tiXDSdl3HUuRtTAYfsxxrPsF',  # Database password
+        'HOST': 'dpg-cpe5at5ds78s73eqk3j0-a.ohio-postgres.render.com',  # Database hostname
+        'PORT': '5432',  # Database port
     }
 }
+
 
 
 # Password validation

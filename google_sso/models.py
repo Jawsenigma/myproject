@@ -7,7 +7,7 @@ class Essay(models.Model):
     body = models.TextField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     spelling_feedback = models.TextField(null=True, blank=True)
-    content_related = models.CharField(max_length=3, null=True, blank=True)
+    content_related = models.CharField(max_length=30, null=True, blank=True)
     score = models.IntegerField(null=True, blank=True)
     date_submitted = models.DateTimeField(auto_now_add=True)
 
