@@ -68,6 +68,8 @@
             <h1>Login</h1>
             <p>Choose a provider to log in:</p>
             <div class="login-providers">
+                <script src="https://accounts.google.com/gsi/client" async defer></script>
+
                 {% get_providers as socialaccount_providers %}
                 {% for provider in socialaccount_providers %}
                     <a href="{% provider_login_url provider.id next="/" %}" class="login-provider">{{ provider.name }}</a>
