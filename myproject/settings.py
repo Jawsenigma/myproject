@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-5u)i#=#54pv5eo0ki9s#=ope^f0a!tlrnd5-awc)6e1@xm&fcf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://django-essay-evaluator.vercel.app/', 'localhost', '127.0.0.1', '.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['django-essay-evaluator-3tnzu3yie-tanmays-projects-01e67c88.vercel.app/','django-essay-evaluator.vercel.app/', 'localhost', '127.0.0.1', '.vercel.app', '.now.sh']
 
 
 # Application definition
@@ -39,11 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',  # Required for the sites framework
+    'django.contrib.sites',  
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',  # Google provider
+    'allauth.socialaccount.providers.google', 
 
     'google_sso',
 ]
@@ -109,8 +109,6 @@ DATABASES = {
     }
 }
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -170,5 +168,5 @@ LOGOUT_REDIRECT_URL = '/'
 
 import os
 
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
