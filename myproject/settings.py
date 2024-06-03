@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-5u)i#=#54pv5eo0ki9s#=ope^f0a!tlrnd5-awc)6e1@xm&fcf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-essay-evaluator.vercel.app', 'localhost', '127.0.0.1', '.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['django-essay-evaluator.vercel.app','your-vercel-domain.vercel.app', 'localhost', '127.0.0.1', '.vercel.app', '.now.sh']
 
 
 # Application definition
@@ -165,8 +165,9 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 
 if DEBUG:
     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
