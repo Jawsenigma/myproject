@@ -55,7 +55,7 @@ SOCIALACCOUNT_PROVIDERS = {
             'email',
         ],
         'AUTH_PARAMS': {
-            'access_type': 'offline',  # Recommended 'offline' for refresh token
+            'access_type': 'online',  # Recommended 'offline' for refresh token
         },
         'OAUTH_PKCE_ENABLED': True,
     }
