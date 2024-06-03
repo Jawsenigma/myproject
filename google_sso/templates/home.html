@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="google-site-verification" content="UWBRQLwJ5LjFzSPMjo4UDyVRegm3Ngrm4WMCv5Cx8aM" />
     <title>Social Login</title>
     {% load socialaccount %}
     <style>
@@ -68,7 +69,7 @@
             <h1>Login</h1>
             <p>Choose a provider to log in:</p>
             <div class="login-providers">
-                <script src="https://accounts.google.com/gsi/client" async defer></script>
+                {% comment %} <script src="https://accounts.google.com/gsi/client" async defer></script> {% endcomment %}
 
                 {% get_providers as socialaccount_providers %}
                 {% for provider in socialaccount_providers %}
