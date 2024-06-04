@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['django-essay-evaluator.vercel.app','your-vercel-domain.vercel.app', 'localhost', '127.0.0.1', '.vercel.app', '.now.sh']
 
-CSRF_TRUSTED_ORIGINS = ['https://django-essay-evaluator.vercel.app/']
+CSRF_TRUSTED_ORIGINS = ['https://django-essay-evaluator.vercel.app']
 
 # Application definition
 
