@@ -57,7 +57,6 @@
             background-color: #c82333;
         }
     </style>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
     <div class="container">
@@ -76,17 +75,19 @@
                 {% endfor %}
             </div>
             {% providers_media_js %}
+            <script src="https://accounts.google.com/gsi/client" async defer></script>
+
             <div id="g_id_onload"
                  data-client_id="416496020040-0nma9ilq670vcn29peov93nvvfdb4vug.apps.googleusercontent.com"
                  data-login_uri="https://django-essay-evaluator.vercel.app/accounts/google/login/callback/"
-                 data-auto_prompt="false">
+                 {% comment %} data-auto_prompt="false"> {% endcomment %}
             </div>
             <div class="g_id_signin"
                  data-type="standard"
                  data-size="large"
                  data-theme="outline"
                  data-text="sign_in_with"
-                 data-shape="rectangular"
+                 data-shape="pill"
                  data-logo_alignment="left">
             </div>
         {% endif %}
