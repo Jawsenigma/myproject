@@ -3,7 +3,7 @@ psycopg2-binary>=2.9.3
 google-auth>=2.0.0
 django-allauth>=0.45.0
 requests>=2.25.1
-openai>=0.28
+openai==0.28.0
 PyJWT>=2.1.0
 cryptography>=3.4.7
 
