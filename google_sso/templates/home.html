@@ -70,13 +70,13 @@
         {% else %}
             <h1>Login</h1>
             <p>Choose a provider to log in:</p>
-            <div class="login-providers">
+            {% comment %} <div class="login-providers">
                 {% get_providers as socialaccount_providers %}
                 {% for provider in socialaccount_providers %}
                     <a href="{% provider_login_url provider.id next="/" %}" class="login-provider">{{ provider.name }}</a>
                 {% endfor %}
             </div>
-            {% providers_media_js %}
+            {% providers_media_js %} {% endcomment %}
             {% comment %} <script src="https://accounts.google.com/gsi/client" async defer onload="console.log('Google Sign-In script loaded.')" onerror="console.error('Google Sign-In script failed to load.')"></script> {% endcomment %}
 
             <div id="g_id_onload"
