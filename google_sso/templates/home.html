@@ -57,6 +57,8 @@
             background-color: #c82333;
         }
     </style>
+    <script src="https://accounts.google.com/gsi/client" async defer onload="console.log('Google Sign-In script loaded.')" onerror="console.error('Google Sign-In script failed to load.')"></script>
+
 </head>
 <body>
     <div class="container">
@@ -75,11 +77,11 @@
                 {% endfor %}
             </div>
             {% providers_media_js %}
-            <script src="https://accounts.google.com/gsi/client" async defer onload="console.log('Google Sign-In script loaded.')" onerror="console.error('Google Sign-In script failed to load.')"></script>
+            {% comment %} <script src="https://accounts.google.com/gsi/client" async defer onload="console.log('Google Sign-In script loaded.')" onerror="console.error('Google Sign-In script failed to load.')"></script> {% endcomment %}
 
             <div id="g_id_onload"
                  data-client_id="{{ socialaccount_providers.google.APP.client_id }}"
-                 data-login_uri="{{ socialaccount_providers.google.APP.redirect_uri }}"
+                 data-login_uri="{% url 'google_login' %}"
                  data-auto_prompt="false">
             </div>
             <div class="g_id_signin"
@@ -94,12 +96,39 @@
     </div>
 
     <script>
-        // Check if the script is loaded
-        if (typeof google === 'undefined') {
-            console.error('Google Sign-In library failed to load.');
-        } else {
-            console.log('Google Sign-In library loaded successfully.');
+        function handleCredentialResponse(response) {
+            const data = { 'credential': response.credential };
+            fetch('{% url "google_login" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    window.location.href = '/';
+                } else {
+                    console.error('Login failed:', data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
         }
+
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: '{{ socialaccount_providers.google.APP.client_id }}',
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("buttonDiv"),
+                { theme: "outline", size: "large" }  // customization attributes
+            );
+            google.accounts.id.prompt(); // also display the One Tap dialog
+        };
     </script>
+    <div id="buttonDiv"></div>
 </body>
 </html>

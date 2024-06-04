@@ -1,9 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+from google.oauth2 import id_token # type: ignore
+from google.auth.transport import requests as google_requests # type: ignore
 from .forms import EssayForm
 from .models import Essay, Prompt
 import openai # type: ignore
 import re
+import os
+from django.views.decorators.csrf import csrf_exempt
+
 
 def home(request):
     # Check if user is authenticated
@@ -39,8 +47,8 @@ def essay_list(request):
 
 def evaluate_essay(api_key, title, body):
     openai.api_key = api_key
-    print("Title:", title)
-    print("Body:", body)
+    # print("Title:", title)
+    # print("Body:", body)
     
 
     try:
@@ -54,9 +62,9 @@ def evaluate_essay(api_key, title, body):
         content_prompt = "Is the content of the following essay related to its title? Answer in Yes or No. Title: {title}\n\nEssay:\n{body}"
         score_prompt = "Based on spelling mistakes and topic relevance, provide an integer score out of 10 for the essay. Title: {title}\n\nEssay:\n{body}"
     
-    print("Spelling Prompt:", spelling_prompt)
-    print("Content Prompt:", content_prompt)
-    print("Score Prompt:", score_prompt)
+    # print("Spelling Prompt:", spelling_prompt)
+    # print("Content Prompt:", content_prompt)
+    # print("Score Prompt:", score_prompt)
     
     # Check spelling errors
     response = openai.Completion.create(
@@ -95,4 +103,28 @@ def evaluate_essay(api_key, title, body):
         'score': score
     }
 
-    
+@csrf_exempt    
+def google_login(request):
+    token = request.POST.get('credential', None)
+    if token is None:
+        return JsonResponse({'error': 'Token not provided'}, status=400)
+
+    try:
+        idinfo = id_token.verify_oauth2_token(token, google_requests.Request(), os.environ.get('GOOGLE_CLIENT_ID'))
+        userid = idinfo['sub']
+        email = idinfo.get('email')
+        first_name = idinfo.get('given_name')
+        last_name = idinfo.get('family_name')
+
+        user, created = User.objects.get_or_create(username=userid, defaults={'first_name': first_name, 'last_name': last_name, 'email': email})
+
+        if not created:
+            user.first_name = first_name
+            user.last_name = last_name
+            user.email = email
+            user.save()
+
+        login(request, user)
+        return JsonResponse({'message': 'Login successful'})
+    except ValueError:
+        return JsonResponse({'error': 'Invalid token'}, status=400)
