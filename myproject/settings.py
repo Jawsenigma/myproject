@@ -59,11 +59,11 @@ SOCIALACCOUNT_PROVIDERS = {
             'access_type': 'offline',  # Recommended 'offline' for refresh token
         },
         'OAUTH_PKCE_ENABLED': True,
-        # 'APP': {
-        #     'client_id': os.environ.get('GOOGLE_CLIENT_ID'),
-        #     'secret': os.environ.get('GOOGLE_CLIENT_SECRET'),
-        #     'redirect_uri': os.environ.get('GOOGLE_REDIRECT_URI'),
-        # },
+        'APP': {
+            'client_id': os.environ.get('GOOGLE_CLIENT_ID'),
+            'secret': os.environ.get('GOOGLE_CLIENT_SECRET'),
+            'redirect_uri': os.environ.get('GOOGLE_REDIRECT_URI'),
+        },
     }
 }
 
