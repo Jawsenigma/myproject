@@ -96,22 +96,3 @@ def evaluate_essay(api_key, title, body):
     }
 
     
-from google.oauth2 import id_token
-
-def verify_id_token(id_token):
-    try:
-        # Specify your app's client ID
-        idinfo = id_token.verify_oauth2_token(id_token, requests.Request())
-        if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
-            raise ValueError('Wrong issuer')
-
-        # You can access user information from idinfo
-        user_id = idinfo['sub']
-        user_email = idinfo['email']
-        # ...
-
-        return True
-
-    except ValueError:
-        # Handle invalid token
-        return False
