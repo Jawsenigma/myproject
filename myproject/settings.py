@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['django-essay-evaluator.vercel.app','your-vercel-domain.vercel.app', 'localhost', '127.0.0.1', '.vercel.app', '.now.sh']
 
+CSRF_TRUSTED_ORIGINS = ['https://django-essay-evaluator.vercel.app/']
 
 # Application definition
 
@@ -148,7 +149,6 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 
 # Default primary key field type
