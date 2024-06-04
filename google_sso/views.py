@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from google.oauth2 import id_token # type: ignore
-from google.auth.transport import requests as google_requests # type: ignore
+from google.oauth2 import id_token 
+from google.auth.transport import requests as google_requests 
 from .forms import EssayForm
 from .models import Essay, Prompt
 import openai # type: ignore
