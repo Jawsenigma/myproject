@@ -68,6 +68,10 @@
         {% else %}
             <h1>Login</h1>
             <p>Choose a provider to log in:</p>
+
+            <a href="{% social_auth_login_url 'google' %}" class="login-provider">Sign in with Google</a>
+
+
             <div class="login-providers">
                 {% get_providers as socialaccount_providers %}
                 {% for provider in socialaccount_providers %}
