@@ -5,4 +5,6 @@ django-allauth>=0.45.0
 requests>=2.25.1
 openai>=0.28.0
 PyJWT>=2.1.0
+cryptography>=3.4.7
+
 # Python==3.12
