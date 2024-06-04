@@ -78,8 +78,8 @@
             <script src="https://accounts.google.com/gsi/client" async defer onload="console.log('Google Sign-In script loaded.')" onerror="console.error('Google Sign-In script failed to load.')"></script>
 
             <div id="g_id_onload"
-                 data-client_id="416496020040-0nma9ilq670vcn29peov93nvvfdb4vug.apps.googleusercontent.com"
-                 data-login_uri="https://django-essay-evaluator.vercel.app/accounts/google/login/callback/"
+                 data-client_id="{{ socialaccount_providers.google.APP.client_id }}"
+                 data-login_uri="{{ socialaccount_providers.google.APP.redirect_uri }}"
                  data-auto_prompt="false">
             </div>
             <div class="g_id_signin"
