@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['django-essay-evaluator.vercel.app','your-vercel-domain.vercel.app', 'localhost', '127.0.0.1', '.vercel.app', '.now.sh']
 
-CSRF_TRUSTED_ORIGINS = ['https://django-essay-evaluator.vercel.app']
+CSRF_TRUSTED_ORIGINS = ['https://django-essay-evaluator.vercel.app', 'https://your-vercel-domain.vercel.app']
 
 # Application definition
 
@@ -59,11 +59,11 @@ SOCIALACCOUNT_PROVIDERS = {
             'access_type': 'offline',  # Recommended 'offline' for refresh token
         },
         'OAUTH_PKCE_ENABLED': True,
-        'APP': {
-            'client_id': os.environ.get('GOOGLE_CLIENT_ID'),
-            'secret': os.environ.get('GOOGLE_CLIENT_SECRET'),
-            'redirect_uri': os.environ.get('GOOGLE_REDIRECT_URI'),
-        },
+        # 'APP': {
+        #     'client_id': os.environ.get('GOOGLE_CLIENT_ID'),
+        #     'secret': os.environ.get('GOOGLE_CLIENT_SECRET'),
+        #     'redirect_uri': os.environ.get('GOOGLE_REDIRECT_URI'),
+        # },
     }
 }
 
@@ -163,8 +163,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-    'allauth.account.auth_backends.SocialAccountAuthBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+    # 'allauth.account.auth_backends.SocialAccountAuthBackend',
 
 )
 

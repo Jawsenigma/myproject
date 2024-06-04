@@ -57,7 +57,7 @@
             background-color: #c82333;
         }
     </style>
-    <script src="https://accounts.google.com/gsi/client" async defer onload="console.log('Google Sign-In script loaded.')" onerror="console.error('Google Sign-In script failed to load.')"></script>
+    {% comment %} <script src="https://accounts.google.com/gsi/client" async defer onload="console.log('Google Sign-In script loaded.')" onerror="console.error('Google Sign-In script failed to load.')"></script> {% endcomment %}
 
 </head>
 <body>
@@ -70,16 +70,16 @@
         {% else %}
             <h1>Login</h1>
             <p>Choose a provider to log in:</p>
-            {% comment %} <div class="login-providers">
+            <div class="login-providers">
                 {% get_providers as socialaccount_providers %}
                 {% for provider in socialaccount_providers %}
                     <a href="{% provider_login_url provider.id next="/" %}" class="login-provider">{{ provider.name }}</a>
                 {% endfor %}
             </div>
-            {% providers_media_js %} {% endcomment %}
+            {% providers_media_js %} 
             {% comment %} <script src="https://accounts.google.com/gsi/client" async defer onload="console.log('Google Sign-In script loaded.')" onerror="console.error('Google Sign-In script failed to load.')"></script> {% endcomment %}
 
-            <div id="g_id_onload"
+            {% comment %} <div id="g_id_onload"
                  data-client_id="{{ socialaccount_providers.google.APP.client_id }}"
                  data-login_uri="{% url 'google_login' %}"
                  data-auto_prompt="false">
@@ -91,11 +91,11 @@
                  data-text="sign_in_with"
                  data-shape="pill"
                  data-logo_alignment="left">
-            </div>
+            </div> {% endcomment %}
         {% endif %}
     </div>
 
-    <script>
+    {% comment %} <script>
         function handleCredentialResponse(response) {
             const data = { 'credential': response.credential };
             fetch('{% url "google_login" %}', {
@@ -129,6 +129,6 @@
             google.accounts.id.prompt(); // also display the One Tap dialog
         };
     </script>
-    <div id="buttonDiv"></div>
+    <div id="buttonDiv"></div> {% endcomment %}
 </body>
 </html>

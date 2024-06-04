@@ -102,29 +102,3 @@ def evaluate_essay(api_key, title, body):
         'content_related': content_related,
         'score': score
     }
-
-@csrf_exempt    
-def google_login(request):
-    token = request.POST.get('credential', None)
-    if token is None:
-        return JsonResponse({'error': 'Token not provided'}, status=400)
-
-    try:
-        idinfo = id_token.verify_oauth2_token(token, google_requests.Request(), os.environ.get('GOOGLE_CLIENT_ID'))
-        userid = idinfo['sub']
-        email = idinfo.get('email')
-        first_name = idinfo.get('given_name')
-        last_name = idinfo.get('family_name')
-
-        user, created = User.objects.get_or_create(username=userid, defaults={'first_name': first_name, 'last_name': last_name, 'email': email})
-
-        if not created:
-            user.first_name = first_name
-            user.last_name = last_name
-            user.email = email
-            user.save()
-
-        login(request, user)
-        return JsonResponse({'message': 'Login successful'})
-    except ValueError:
-        return JsonResponse({'error': 'Invalid token'}, status=400)

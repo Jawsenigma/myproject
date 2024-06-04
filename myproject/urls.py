@@ -25,7 +25,6 @@ urlpatterns = [
     path('submit/', views.submit_essay, name='submit_essay'),
     path('essays/', views.essay_list, name='essay_list'),
     path('accounts/', include('allauth.urls')),  # Include allauth URLs
-    path('google_login/', views.google_login, name='google_login'),  
 
 ]
 
