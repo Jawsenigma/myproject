@@ -74,7 +74,7 @@
                     <a href="{% provider_login_url provider.id next="/" %}" class="login-provider">{{ provider.name }}</a>
                 {% else %}
                     <p>No providers available.</p>
-                    {% endfor %}
+                {% endfor %}
             </div>
             {% providers_media_js %}
             <script src="https://accounts.google.com/gsi/client" async defer onload="console.log('Google Sign-In script loaded.')" onerror="console.error('Google Sign-In script failed to load.')"></script>
