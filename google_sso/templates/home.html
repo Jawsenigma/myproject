@@ -1,7 +1,9 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="GJMm5M6kEtE90Q_xxIOjHw2iLgGtVQAmJ81KQ25JFhg" />    <title>Social Login</title>
+    <meta name="google-site-verification" content="GJMm5M6kEtE90Q_xxIOjHw2iLgGtVQAmJ81KQ25JFhg" />
+    <title>Social Login</title>
     {% load socialaccount %}
     <style>
         body {
@@ -56,6 +58,7 @@
             background-color: #c82333;
         }
     </style>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
     <div class="container">
@@ -68,14 +71,26 @@
             <h1>Login</h1>
             <p>Choose a provider to log in:</p>
             <div class="login-providers">
-                {% comment %} <script src="https://accounts.google.com/gsi/client" async defer></script> {% endcomment %}
-
                 {% get_providers as socialaccount_providers %}
                 {% for provider in socialaccount_providers %}
                     <a href="{% provider_login_url provider.id next="/" %}" class="login-provider">{{ provider.name }}</a>
                 {% endfor %}
             </div>
             {% providers_media_js %}
+            <div id="g_id_onload"
+                 data-client_id="396394468471-vhrrhpt8udt8q927tm62anonh3iops0m.apps.googleusercontent.com
+                 "
+                 data-login_uri="https://django-essay-evaluator.vercel.app/accounts/google/login/callback/"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-size="large"
+                 data-theme="outline"
+                 data-text="sign_in_with"
+                 data-shape="rectangular"
+                 data-logo_alignment="left">
+            </div>
         {% endif %}
     </div>
 </body>
