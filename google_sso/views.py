@@ -7,7 +7,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests 
 from .forms import EssayForm
 from .models import Essay, Prompt
-import openai # type: ignore
+import openai
 import re
 import os
 from django.views.decorators.csrf import csrf_exempt
@@ -67,7 +67,7 @@ def evaluate_essay(api_key, title, body):
     # print("Score Prompt:", score_prompt)
     
     # Check spelling errors
-    response = openai.Completion.create(
+    response = openai.ChatCompletion.create(
         engine="gpt-3.5-turbo-instruct",
         prompt=spelling_prompt.format(body=body),
         max_tokens=500
@@ -75,7 +75,7 @@ def evaluate_essay(api_key, title, body):
     spelling_feedback = response.choices[0].text.strip()
 
     # Check if the content is related to the title
-    response = openai.Completion.create(
+    response = openai.ChatCompletion.create(
         engine="gpt-3.5-turbo-instruct",
         prompt=content_prompt.format(title=title, body=body),
         max_tokens=10
@@ -84,7 +84,7 @@ def evaluate_essay(api_key, title, body):
 
     # Provide an essay score out of 10
     score_prompt = Prompt.objects.get(name='score_prompt').prompt_text
-    score_response = openai.Completion.create(
+    score_response = openai.ChatCompletion.create(
         engine="gpt-3.5-turbo-instruct",
         prompt=score_prompt.format(title=title, body=body),
         max_tokens=10
