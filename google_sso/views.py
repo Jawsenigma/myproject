@@ -68,7 +68,7 @@ def evaluate_essay(api_key, title, body):
     
     # Check spelling errors
     response = openai.Completion.create(
-        engine="gpt-3.5-turbo-instruct",
+        engine="gpt-3.5-turbo",
         prompt=spelling_prompt.format(body=body),
         max_tokens=500
     )
@@ -76,7 +76,7 @@ def evaluate_essay(api_key, title, body):
 
     # Check if the content is related to the title
     response = openai.Completion.create(
-        engine="gpt-3.5-turbo-instruct",
+        engine="gpt-3.5-turbo",
         prompt=content_prompt.format(title=title, body=body),
         max_tokens=10
     )
@@ -85,7 +85,7 @@ def evaluate_essay(api_key, title, body):
     # Provide an essay score out of 10
     score_prompt = Prompt.objects.get(name='score_prompt').prompt_text
     score_response = openai.Completion.create(
-        engine="gpt-3.5-turbo-instruct",
+        engine="gpt-3.5-turbo",
         prompt=score_prompt.format(title=title, body=body),
         max_tokens=10
     )
