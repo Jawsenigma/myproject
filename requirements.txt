@@ -6,5 +6,7 @@ requests>=2.25.1
 openai==0.28.0
 PyJWT>=2.1.0
 cryptography>=3.4.7
+python-dotenv>=0.19.1
+
 
 # Python==3.12
