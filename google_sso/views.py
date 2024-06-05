@@ -47,9 +47,6 @@ def essay_list(request):
 
 def evaluate_essay(api_key, title, body):
     openai.api_key = api_key
-    # print("Title:", title)
-    # print("Body:", body)
-    
 
     try:
         spelling_prompt = Prompt.objects.get(name='spelling_prompt').prompt_text
@@ -57,45 +54,44 @@ def evaluate_essay(api_key, title, body):
         score_prompt = Prompt.objects.get(name='score_prompt').prompt_text
     except Prompt.DoesNotExist:
         print("Fallback prompts used.")
-        # Default prompts in case they are not found in the database
         spelling_prompt = "Check the following essay for spelling errors and provide the incorrectly spelled words along with their index positions.\n\nEssay:\n{body}"
         content_prompt = "Is the content of the following essay related to its title? Answer in Yes or No. Title: {title}\n\nEssay:\n{body}"
         score_prompt = "Based on spelling mistakes and topic relevance, provide an integer score out of 10 for the essay. Title: {title}\n\nEssay:\n{body}"
     
-    # print("Spelling Prompt:", spelling_prompt)
-    # print("Content Prompt:", content_prompt)
-    # print("Score Prompt:", score_prompt)
-    
     # Check spelling errors
-    response = openai.Completion.create(
-        engine="gpt-3.5-turbo",
-        prompt=spelling_prompt.format(body=body),
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a spelling checker."},
+            {"role": "user", "content": spelling_prompt.format(body=body)}
+        ],
         max_tokens=500
     )
-    spelling_feedback = response.choices[0].text.strip()
+    spelling_feedback = response.choices[0]['message']['content'].strip()
 
     # Check if the content is related to the title
-    response = openai.Completion.create(
-        engine="gpt-3.5-turbo",
-        prompt=content_prompt.format(title=title, body=body),
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a content relevance checker."},
+            {"role": "user", "content": content_prompt.format(title=title, body=body)}
+        ],
         max_tokens=10
     )
-    content_related = response.choices[0].text.strip()
+    content_related = response.choices[0]['message']['content'].strip()
 
     # Provide an essay score out of 10
-    score_prompt = Prompt.objects.get(name='score_prompt').prompt_text
-    score_response = openai.Completion.create(
-        engine="gpt-3.5-turbo",
-        prompt=score_prompt.format(title=title, body=body),
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are an essay scorer."},
+            {"role": "user", "content": score_prompt.format(title=title, body=body)}
+        ],
         max_tokens=10
     )
-    score_text = score_response.choices[0].text.strip()
+    score_text = response.choices[0]['message']['content'].strip()
     score_match = re.search(r'\d+', score_text)
-    if score_match:
-        score = int(score_match.group())
-    else:
-        # Handle the case where no digit is found (default to 0 or raise an error)
-        score = 0  # Example: Default to 0
+    score = int(score_match.group()) if score_match else 0
 
     return {
         'spelling_feedback': spelling_feedback,
