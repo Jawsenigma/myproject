@@ -12,22 +12,18 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5u)i#=#54pv5eo0ki9s#=ope^f0a!tlrnd5-awc)6e1@xm&fcf'
+DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() in ['true', '1']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['django-essay-evaluator.vercel.app','your-vercel-domain.vercel.app', 'localhost', '127.0.0.1', '.vercel.app', '.now.sh']
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS').split(',')
 
 CSRF_TRUSTED_ORIGINS = ['https://django-essay-evaluator.vercel.app', 'https://your-vercel-domain.vercel.app']
 
@@ -58,13 +54,8 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'offline',  # Recommended 'offline' for refresh token
         },
-        'OAUTH_PKCE_ENABLED': True,
-        # 'APP': {
-        #     'client_id': os.environ.get('GOOGLE_CLIENT_ID'),
-        #     'secret': os.environ.get('GOOGLE_CLIENT_SECRET'),
-        #     'redirect_uri': os.environ.get('GOOGLE_REDIRECT_URI'),
-        # },
-    }
+        'OAUTH_PKCE_ENABLED': True,    
+        }
 }
 
 SITE_ID = 6
@@ -101,22 +92,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgresql_django_essay_evaluator',  
-        'USER': 'postgresql_django_essay_evaluator_user',  
-        'PASSWORD': 'yU2tMx10tiXDSdl3HUuRtTAYfsxxrPsF',  
-        'HOST': 'dpg-cpe5at5ds78s73eqk3j0-a.ohio-postgres.render.com',
-        'PORT': '5432',  
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT'),
     }
 }
 
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -150,8 +139,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -164,14 +151,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend'
-    # 'allauth.account.auth_backends.SocialAccountAuthBackend',
 
 )
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 if DEBUG:
