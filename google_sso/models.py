@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Essay(models.Model):
     title = models.CharField(max_length=255)
-    body = models.TextField(max_length=500)
+    body = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     spelling_feedback = models.TextField(null=True, blank=True)
     content_related = models.TextField(null=True, blank=True)
