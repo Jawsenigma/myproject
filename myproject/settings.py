@@ -23,7 +23,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() in ['true', '1']
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS').split(',')
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS','').split(',')
 
 CSRF_TRUSTED_ORIGINS = ['https://django-essay-evaluator.vercel.app', 'https://your-vercel-domain.vercel.app']
 
