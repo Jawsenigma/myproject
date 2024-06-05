@@ -8,6 +8,9 @@ class EssayForm(forms.ModelForm):
     class Meta:
         model = Essay
         fields = ['title', 'body', 'api_key']
+        widgets = {
+            'body': forms.Textarea(attrs={'rows': 15, 'cols': 100}),  # Adjust rows and cols as needed
+        }
 
     def clean_body(self):
         body = self.cleaned_data['body']
