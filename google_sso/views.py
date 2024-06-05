@@ -65,7 +65,7 @@ def evaluate_essay(api_key, title, body):
             {"role": "system", "content": "You are a spelling checker."},
             {"role": "user", "content": spelling_prompt.format(body=body)}
         ],
-        max_tokens=500
+        # max_tokens=500
     )
     spelling_feedback = response.choices[0]['message']['content'].strip()
 

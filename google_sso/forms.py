@@ -8,3 +8,10 @@ class EssayForm(forms.ModelForm):
     class Meta:
         model = Essay
         fields = ['title', 'body', 'api_key']
+
+    def clean_body(self):
+        body = self.cleaned_data['body']
+        word_count = len(body.split())
+        if word_count > 500:
+            raise forms.ValidationError('The essay body cannot exceed 500 words. Current word count: {}'.format(word_count))
+        return body
